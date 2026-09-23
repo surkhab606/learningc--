@@ -14,7 +14,7 @@ class Fighter {
             name = fighterName; 
             health = hp; 
             maxHealth = maxHP;
-            potionCount = potions;
+            potions = potionCount;
             damage = dmg;
         }
 
@@ -51,8 +51,8 @@ class Fighter {
                 potions -= 1;
                 health += 30; 
 
-                if (health > 100) {
-                    health = 100; 
+                if (health > maxHealth) {
+                    health = maxHealth; 
                 }
                 std::cout << "Drank one potion. Restored 30 HP." << '\n';
                 return true;
@@ -114,6 +114,7 @@ void enterDuel(Fighter& hero, Fighter& enemy) {
             case 2:
                 potionDrank = hero.drinksPotion();
                 if (potionDrank == true) { 
+                    std::cout << enemy.getName() << " attacked for " << enemy.getDamage() << " damage! " << '\n';
                     hero.takeDamage(enemy.getDamage()); 
                 } 
                 break;
@@ -142,6 +143,7 @@ void enterDuel(Fighter& hero, Fighter& enemy) {
 int main() {
     Fighter knight ("Knight", 90, 100, 2, 17);
     Fighter orc ("Orc", 70, 70, 0, 13);
+   
 
     enterDuel(knight, orc); 
 
