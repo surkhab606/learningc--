@@ -74,7 +74,7 @@ void viewStatus(const Player& player, const Enemy& enemy) {
     std::cout << player.name << '\n';
     std::cout << "HP: " << player.health << " / " << player.maxHealth << '\n'; 
     std::cout << "Potions: " << player.potions << '\n';
-    std::cout << "Damage: " << player.damage << '\n'; 
+    std::cout << "Damage: " << player.damage << '\n';
     std::cout << " " << '\n';
     std::cout << enemy.name << '\n';
     std::cout << "HP: " << enemy.health << " / " << enemy.maxHealth << '\n'; 
