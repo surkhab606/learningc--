@@ -89,10 +89,10 @@ class Adventurer {
                 potions -= 1;
                 std::cout << "Drank one potion. Restored 30 HP." << '\n'; 
                 health += 30; 
-                std::cout << name << " total HP: " << health << " / " << maxHealth << '\n';
                 if (health > maxHealth) { 
                     health = maxHealth; 
                 }
+                std::cout << name << " total HP: " << health << " / " << maxHealth << '\n';
 
             }
 
@@ -112,18 +112,22 @@ class Adventurer {
             }
         }
 
-        void spendGold(int amount) { 
+        bool spendGold(int amount) { 
             if (amount < 0) {
-                std::cout << "Cannot spend " << amount << " gold. Invalid amount." <<'\n';\
+                std::cout << "Cannot spend " << amount << " gold. Invalid amount." <<'\n';
+                return false;
             }
             else if (gold < amount) {
                 std::cout << "Insufficient funds." << '\n';
+                return false;
             }
 
             else {
                 gold -= amount;
                 std::cout << "Spent " << amount << " gold. " << gold << " gold remaining. " <<'\n';
+                return true; 
             }
+
         }
 
 
