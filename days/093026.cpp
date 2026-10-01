@@ -110,7 +110,7 @@ class Adventurer {
             
         }
 
-        void inspectItem() { 
+        void inspectItem() const { 
             if (inventory.empty() == true) { 
                 std::cout << "Inventory is empty." << '\n';
                 return; 
@@ -120,30 +120,66 @@ class Adventurer {
             std::cout << "Which item would you like to inspect? " << '\n';
             std::cin >> userChoice; 
             
-            while (std::cin.fail() || userChoice < 1 || userChoice > inventory.size() + 1) {
+            while (std::cin.fail() || userChoice < 1 || userChoice > inventory.size()) {
                 std::cin.clear();
                 std::cin.ignore(10000, '\n'); 
                 std::cout << "Choose a valid item option." << '\n';
+                std::cin >> userChoice;
             }
 
             std::cout << "Inspecting " << inventory[userChoice - 1].getName() << '\n';
             std::cout << "Value: " << inventory[userChoice - 1].getGold() << '\n';
         }
 
-        void sellLastItem() { 
+        void dropItem() { 
+            if (inventory.empty() == true) {
+                std::cout << "Nothing to drop." << '\n';
+                return;
+            }
+            int userChoice = 0; 
+            viewInventory(); 
+            std::cout << "Which item would you like to drop? " << '\n';
+            std::cin >> userChoice; 
+            
+            while (std::cin.fail() || userChoice < 1 || userChoice > inventory.size()) {
+                std::cin.clear();
+                std::cin.ignore(10000, '\n'); 
+                std::cout << "Choose a valid item option." << '\n';
+                std::cin >> userChoice;
+            }
+
+            std::cout << "Dropping " << inventory[userChoice - 1].getName() << "... " << '\n';
+            inventory.erase(inventory.begin() + (userChoice - 1));   
+            
+        }
+
+        void sellItem() { 
             if (inventory.empty() == true) {
                 std::cout << "Nothing to sell." << '\n';
-
+                return; 
             }
 
-            else {
-                Item lastItem = inventory.back(); 
-                int value = lastItem.getGold();  
-                std::cout << "Sold " << lastItem.getName() << " for " << value << " gold" << '\n';
-                gold += value; 
-                inventory.pop_back();
-                std::cout << "Total gold: " << gold << '\n';
+            int userChoice = 0; 
+            viewInventory(); 
+            std::cout << "Which item would you like to sell? " << '\n';
+            std::cin >> userChoice; 
+            
+            while (std::cin.fail() || userChoice < 1 || userChoice > inventory.size()) {
+                std::cin.clear();
+                std::cin.ignore(10000, '\n'); 
+                std::cout << "Choose a valid item option." << '\n';
+                std::cin >> userChoice;
             }
+
+            std::cout << "Selling " << inventory[userChoice - 1].getName() << '\n';
+            std::cout << "Value: " << inventory[userChoice - 1].getGold() << '\n';
+
+            int value = inventory[userChoice - 1].getGold();  
+            std::cout << "Sold " << inventory[userChoice - 1].getName() << " for " << value << " gold" << '\n';
+            gold += value; 
+            inventory.erase(inventory.begin() + (userChoice - 1));   
+            std::cout << "Total gold: " << gold << '\n';
+
         }
 
 
@@ -152,16 +188,17 @@ class Adventurer {
 
 void openInventory(Adventurer& hero) { 
     int userChoice = 0; 
-    while (userChoice != 5) {
+    while (userChoice != 6) {
         std::cout << " === INVENTORY SYSTEM ===" << '\n';
         std::cout << "1. Find Item " << '\n';
         std::cout << "2. View Inventory " << '\n';
         std::cout << "3. Inspect Item " << '\n';
-        std::cout << "4. Sell Last Item " << '\n';
-        std::cout << "5. Leave " << '\n';
+        std::cout << "4. Drop Item" << '\n';
+        std::cout << "5. Sell Item " << '\n';
+        std::cout << "6. Leave " << '\n';
         std::cin >> userChoice;
 
-        while (std::cin.fail() || userChoice < 1 || userChoice > 5) {
+        while (std::cin.fail() || userChoice < 1 || userChoice > 6) {
             std::cin.clear();
             std::cin.ignore(10000, '\n'); 
             std::cout << "Invalid menu option. Select a valid option." << '\n';
@@ -179,9 +216,12 @@ void openInventory(Adventurer& hero) {
                 hero.inspectItem();
                 break;
             case 4:
-                hero.sellLastItem();
+                hero.dropItem(); 
                 break;
             case 5: 
+                hero.sellItem();
+                break;
+            case 6:
                 break;
         }
     }
