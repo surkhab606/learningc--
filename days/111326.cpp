@@ -1,45 +1,29 @@
 #include <iostream>
-#include <string>
-
 
 int main() { 
     
-    std::string var = "";
+    int n = 0;
+    std::cin >> n;
     
-    while (var != "#") {
-        std::cin >> var;
-        int num = 0;
-        std::string result = ""; 
-
-        for (int i = 0; i < var.size() - 1; i++) { 
-            
-            if (var[i] == '1') {
-                num += 1;   
-            }
-
-            result += var[i];
+    for (int i = 0; i < n; i++) {
+        float long1 = 0.0; 
+        std::cin >> long1; 
+        float lat1 = 0.0; 
+        std::cin >> lat1;
+        
+        if (long1 < -180.00 || long1 > 180.00 || lat1 < -90.0 || lat1 > 90.0 ) {
+            std::cout << "INVALID" << '\n';
         }
-
-        if (var.back() == 'e') { 
-            if (num % 2 == 0) {
-                std::cout << result + "0" << '\n'; //need to figure out how to concatenate strings
-            }
-            else {
-                std::cout << result + "1"<< '\n'; //need to figure out how to concatenate strings
-            }
-        }
-            
-        else if (var.back() == 'o') {
-            if (num % 2 == 0) {
-                std::cout << result + "1"<< '\n'; //need to figure out how to concatenate strings
-            }
-            else {
-                std::cout << result + "0" << '\n'; //need to figure out how to concatenate strings
-            }
+        
+        else {
+            std::cout << "VALID" << '\n'; 
         }
     }
-        
-     return 0; 
+    
+    
+    
+    
+    
+    
+    return 0; 
 }
-
-
