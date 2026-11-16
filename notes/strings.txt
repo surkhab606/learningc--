@@ -1,0 +1,7 @@
+
+
+=== TO READ A STRING UNTIL NEWLINE === 
+Use getline: 
+    std::string forceUserName = ""; 
+    std::getline(std::cin, forceUserName);
+
