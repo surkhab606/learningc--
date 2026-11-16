@@ -1,32 +1,27 @@
 #include <iostream>
-#include <string>
+#include <map> 
 
 
 int main() {
-    std::string forceUserName = ""; 
-    std::getline(std::cin, forceUserName);
+    int n = 0; 
+    std::cin >> n;
+
+    std::map<int, int> numberMap{{}}; 
+
+    for (int i = 0; i < n; i++) {
+        int userRoll = 0;
+        std::cin >> userRoll; 
+        
+        if (numberMap.contains(userRoll)) {
+            numberMap[userRoll] += 1;
+        }
+
+        else {
+            numberMap[userRoll] = 1;
+        }
+    }
+
     
-    int a = 0; 
-    std::cin >> a;
-
-    int b = 0; 
-    std::cin >> b; 
-
-    int aminusb = 0; 
-    std::cin >> aminusb;
-
-    if (a > b) {
-        std::cout << "VEIT EKKI"; 
-    }
-
-    else if (a - b == aminusb) {
-        std::cout << "JEDI";
-    }
-
-    else if (a - b != aminusb) {
-        std::cout << "SITH";
-    }
-
 
 
     
